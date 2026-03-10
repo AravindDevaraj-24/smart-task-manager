@@ -15,6 +15,9 @@ function Sidebar() {
       <Button as={Link} to="/tasks">
         Tasks
       </Button>
+      <Button as={Link} to="/create-task">
+        Create Task
+      </Button>
     </VStack>
   )
 }

@@ -1,17 +1,20 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Tasks from "./pages/Tasks/Tasks";
 import Layout from "./components/layout/Layout";
+import CreateTask from "./pages/CreateTask/CreateTask";
 
 function App() {
   return (
     <Router>
       <Layout>
-        <Switch>
-          <Route exact path="/" component={Dashboard} />
+        <Routes>
+          <Route exact path="/" element={<Dashboard/>} />
 
-          <Route path="/tasks" component={Tasks} />
-        </Switch>
+          <Route path="/tasks" element={<Tasks/>} />
+
+          <Route path="/create-task" element={<CreateTask/>} />
+        </Routes>
       </Layout>
     </Router>
   );
