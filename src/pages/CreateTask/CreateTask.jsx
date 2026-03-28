@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Box,
   Heading,
@@ -10,6 +10,8 @@ import {
   Button,
   VStack
 } from "@chakra-ui/react";
+
+import { TaskContext } from "../../context/TaskContext";
 
 function CreateTask() {
 
@@ -28,8 +30,11 @@ function CreateTask() {
     }));
   }
 
+  const { addTask } = useContext(TaskContext);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    addTask(formData);
     console.log(formData)
   }
 
