@@ -1,6 +1,6 @@
 import { Box, Heading, Text, Badge, VStack, HStack } from "@chakra-ui/react";
 
-const Taskcard = ({ task })=> {
+const TaskCard = ({ task })=> {
 
   const priorityColor = (priority) => {
     if(priority === "high") return "red";
@@ -32,7 +32,7 @@ const Taskcard = ({ task })=> {
           <Badge colorScheme={priorityColor(task.priority)} >{task.priority}</Badge>
 
           <Badge colorScheme={statusColor(task.status)}>{task.status}</Badge>
-          
+
         </HStack>
 
       </VStack>
@@ -40,4 +40,4 @@ const Taskcard = ({ task })=> {
   )
 }
 
-export default Taskcard
+export default TaskCard
