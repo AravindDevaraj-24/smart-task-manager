@@ -1,6 +1,6 @@
-import { Box, Heading, Text, Badge, VStack, HStack } from "@chakra-ui/react";
+import { Box, Heading, Text, Badge, VStack, HStack, Button } from "@chakra-ui/react";
 
-const TaskCard = ({ task })=> {
+const TaskCard = ({ task, onDelete })=> {
 
   const priorityColor = (priority) => {
     if(priority === "high") return "red";
@@ -21,6 +21,9 @@ const TaskCard = ({ task })=> {
       boxShadow="sm"
       width="100%"
     >
+      <HStack spacing="3" justify="space-between">
+
+      
       <VStack align="start" spacing="3">
 
         <Heading>{task.title}</Heading>
@@ -34,8 +37,17 @@ const TaskCard = ({ task })=> {
           <Badge colorScheme={statusColor(task.status)}>{task.status}</Badge>
 
         </HStack>
+        
 
       </VStack>
+      <Button
+          size='sm'
+          colorScheme="red"
+          onClick={onDelete}
+        >
+          Delete
+        </Button>
+      </HStack>
     </Box>
   )
 }

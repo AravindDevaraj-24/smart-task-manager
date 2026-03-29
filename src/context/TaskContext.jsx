@@ -13,12 +13,16 @@ export const TaskProvider = ({children}) => {
     setTasks((prev)=>[...prev, task]);
   }
 
+  const deleteTask = (id) => {
+    setTasks( prev => prev.filter((task) => task.id !== id))
+  }
+
   useEffect(()=>{
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks])
 
   return (
-    <TaskContext.Provider value={{ tasks, addTask }}>
+    <TaskContext.Provider value={{ tasks, addTask, deleteTask }}>
       {children}
     </TaskContext.Provider>
   );

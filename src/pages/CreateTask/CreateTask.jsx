@@ -34,8 +34,11 @@ function CreateTask() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTask(formData);
-    console.log(formData)
+    const newTask = {
+      id: Date.now(),
+      ...formData
+    };
+    addTask(newTask);
   }
 
   return (
