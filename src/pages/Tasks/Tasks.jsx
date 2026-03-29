@@ -12,7 +12,7 @@ import {
 import TaskCard from '../../components/common/Taskcard';
 
 function Tasks() {
-  const { tasks, deleteTask } = useContext(TaskContext);
+  const { tasks, deleteTask, updateTaskStatus } = useContext(TaskContext);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
@@ -75,6 +75,7 @@ function Tasks() {
               key={index}
               task={task}
               onDelete={() => deleteTask(task.id)}
+              onStatusChange={() => updateTaskStatus(task.id)}
             />
           ))
         )}

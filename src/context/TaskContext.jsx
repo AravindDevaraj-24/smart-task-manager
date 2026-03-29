@@ -1,29 +1,49 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from 'react';
 
 export const TaskContext = createContext();
 
-export const TaskProvider = ({children}) => {
-
-  const [tasks, setTasks] = useState(()=>{
-    const storedData = localStorage.getItem("tasks");
-    return storedData ? JSON.parse(storedData) : []
+export const TaskProvider = ({ children }) => {
+  const [tasks, setTasks] = useState(() => {
+    const storedData = localStorage.getItem('tasks');
+    return storedData ? JSON.parse(storedData) : [];
   });
-  
-  const addTask = (task)=> {
-    setTasks((prev)=>[...prev, task]);
-  }
+
+  const addTask = (task) => {
+    setTasks((prev) => [...prev, task]);
+  };
 
   const deleteTask = (id) => {
-    setTasks( prev => prev.filter((task) => task.id !== id))
-  }
+    setTasks((prev) => prev.filter((task) => task.id !== id));
+  };
 
-  useEffect(()=>{
+  const updateTaskStatus = (id) => {
+    setTasks((prev) =>
+      prev.map((task) => {
+        if(task.id === id) {
+          let newStatus;
+
+          if(task.status === "todo") newStatus = "in-progress";
+          else if(task.status === "in-progress") newStatus = "done";
+          else newStatus = "todo";
+
+          return {
+            ...task,
+            status: newStatus
+          };
+        }
+
+        return task;
+      })
+    );
+  };
+
+  useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
-  }, [tasks])
+  }, [tasks]);
 
   return (
-    <TaskContext.Provider value={{ tasks, addTask, deleteTask }}>
+    <TaskContext.Provider value={{ tasks, addTask, deleteTask, updateTaskStatus }}>
       {children}
     </TaskContext.Provider>
   );
-}
+};
