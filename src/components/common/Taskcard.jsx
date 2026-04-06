@@ -8,7 +8,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 
-const TaskCard = ({ task, onDelete, onStatusChange }) => {
+const TaskCard = ({ task, onDelete, onStatusChange, onEdit }) => {
   const priorityColor = (priority) => {
     if (priority === 'high') return 'red';
     if (priority === 'medium') return 'yellow';
@@ -41,9 +41,19 @@ const TaskCard = ({ task, onDelete, onStatusChange }) => {
             </Badge>
           </HStack>
         </VStack>
-        <Button size='sm' colorScheme='red' onClick={onDelete}>
-          Delete
-        </Button>
+        <VStack align='start' spacing='3'>
+          <Button size='sm' colorScheme='red' onClick={onDelete}>
+            Delete
+          </Button>
+          <Button
+            size="sm"
+            colorScheme="purple"
+            onClick={() => onEdit(task)}
+          >
+            Edit
+          </Button>
+        </VStack>
+        
       </HStack>
     </Box>
   );

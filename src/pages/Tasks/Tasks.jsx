@@ -10,6 +10,7 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import TaskCard from '../../components/common/Taskcard';
+import EditTaskModal from '../../components/common/EditTaskModal';
 
 function Tasks() {
   const { tasks, deleteTask, updateTaskStatus } = useContext(TaskContext);
@@ -17,6 +18,14 @@ function Tasks() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
   const [priorityFilter, setPriorityFilter] = useState('');
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const handleEdit = (task) => {
+    setSelectedTask(task);
+    setIsOpen(true);
+  }
 
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
@@ -76,10 +85,16 @@ function Tasks() {
               task={task}
               onDelete={() => deleteTask(task.id)}
               onStatusChange={() => updateTaskStatus(task.id)}
+              onEdit={handleEdit}
             />
           ))
         )}
       </VStack>
+      <EditTaskModal
+        isOpen={isOpen}
+        onClose={()=> setIsOpen(false)}
+        task={selectedTask}
+      />
     </Box>
   );
 }

@@ -19,21 +19,27 @@ export const TaskProvider = ({ children }) => {
   const updateTaskStatus = (id) => {
     setTasks((prev) =>
       prev.map((task) => {
-        if(task.id === id) {
+        if (task.id === id) {
           let newStatus;
 
-          if(task.status === "todo") newStatus = "in-progress";
-          else if(task.status === "in-progress") newStatus = "done";
-          else newStatus = "todo";
+          if (task.status === 'todo') newStatus = 'in-progress';
+          else if (task.status === 'in-progress') newStatus = 'done';
+          else newStatus = 'todo';
 
           return {
             ...task,
-            status: newStatus
+            status: newStatus,
           };
         }
 
         return task;
-      })
+      }),
+    );
+  };
+
+  const updateTask = (updatedTask) => {
+    setTasks((prev) =>
+      prev.map((task) => (task.id === updatedTask.id ? updatedTask : task))
     );
   };
 
@@ -42,7 +48,9 @@ export const TaskProvider = ({ children }) => {
   }, [tasks]);
 
   return (
-    <TaskContext.Provider value={{ tasks, addTask, deleteTask, updateTaskStatus }}>
+    <TaskContext.Provider
+      value={{ tasks, addTask, deleteTask, updateTaskStatus, updateTask }}
+    >
       {children}
     </TaskContext.Provider>
   );
