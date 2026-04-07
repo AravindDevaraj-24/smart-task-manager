@@ -8,7 +8,8 @@ import {
   Textarea,
   Select,
   Button,
-  VStack
+  VStack,
+  Text
 } from "@chakra-ui/react";
 
 import { TaskContext } from "../../context/TaskContext";
@@ -32,13 +33,48 @@ function CreateTask() {
 
   const { addTask } = useContext(TaskContext);
 
+  const [errors, setErrors] = useState({
+    title: "",
+    description: ""
+  });
+
+  const validate = () => {
+    const newErrors = {};
+
+    if(!formData.title.trim()) {
+      newErrors.title = "Title is required";
+    }
+
+    if(!formData.description.trim()) {
+      newErrors.description = "Description is required";
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if(!validate()) return;
+
     const newTask = {
       id: Date.now(),
       ...formData
     };
+
     addTask(newTask);
+
+    // reset form
+    setFormData({
+      title: "",
+      description: "",
+      priotity: "medium",
+      status: "todo"
+    });
+
+    setErrors({});
   }
 
   return (
@@ -49,7 +85,7 @@ function CreateTask() {
       <form onSubmit={handleSubmit} >
         <VStack spacing="4">
 
-          <FormControl>
+          <FormControl isInvalid={errors.title}>
             <FormLabel>Title</FormLabel>
             <Input
               name="title"
@@ -57,9 +93,10 @@ function CreateTask() {
               onChange={handleChange}
               placeholder="Enter task title"
             />
+            <Text color="red.500" fontSize="sm">{errors.title}</Text>
           </FormControl>
 
-          <FormControl>
+          <FormControl isInvalid={errors.description}>
             <FormLabel>Description</FormLabel>
             <Textarea
               name="description"
@@ -67,6 +104,7 @@ function CreateTask() {
               onChange={handleChange}
               placeholder="Enter task description"
             />
+            <Text color="red.500" fontSize="sm">{errors.description}</Text>
           </FormControl>
 
           <FormControl>
@@ -99,6 +137,7 @@ function CreateTask() {
             type="submit"
             colorScheme="teal"
             width="full"
+            isDisabled={!formData.title || !formData.description}
           >
             Create Task
           </Button>
