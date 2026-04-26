@@ -17,7 +17,7 @@ const TaskCard = ({ task, onDelete, onStatusChange, onEdit }) => {
 
   const statusColor = (status) => {
     if (status === 'todo') return 'gray';
-    if (status === 'in-progress') return 'blue';
+    if (status === 'inProgress') return 'blue';
     return 'green';
   };
   return (

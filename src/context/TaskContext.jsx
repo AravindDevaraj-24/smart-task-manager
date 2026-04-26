@@ -22,8 +22,8 @@ export const TaskProvider = ({ children }) => {
         if (task.id === id) {
           let newStatus;
 
-          if (task.status === 'todo') newStatus = 'in-progress';
-          else if (task.status === 'in-progress') newStatus = 'done';
+          if (task.status === 'todo') newStatus = 'inProgress';
+          else if (task.status === 'inProgress') newStatus = 'done';
           else newStatus = 'todo';
 
           return {

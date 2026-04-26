@@ -128,7 +128,7 @@ function CreateTask() {
               onChange={handleChange}
             >
               <option value="todo">Todo</option>
-              <option value="in-progress">In Progress</option>
+              <option value="inProgress">In Progress</option>
               <option value="done">Done</option>
             </Select>
           </FormControl>
